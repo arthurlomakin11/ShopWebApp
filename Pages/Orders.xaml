@@ -1,0 +1,140 @@
+﻿<Page x:Class="ShopWebApp.Pages.Orders"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:code="clr-namespace:ShopWebApp.Code"
+      xmlns:data="clr-namespace:ShopWebData;assembly=ShopWebData"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Заказы" FontSize="14">
+    <Page.Resources>
+        <CollectionViewSource x:Key="Shops"/>
+    </Page.Resources>
+    <Grid Background="White">
+        <DataGrid AreRowDetailsFrozen="True" IsReadOnly="True" FrozenColumnCount="1" SelectionUnit="CellOrRowHeader" RowDetailsVisibilityMode="VisibleWhenSelected" SelectedCellsChanged="OrdersDataGrid_SelectedCellsChanged" x:Name="OrdersDataGrid" AutoGenerateColumns="False" CanUserDeleteRows="False" CanUserAddRows="False" Margin="0,0,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО заказчика" Binding="{Binding Buyer.Fio}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Номер заказа" Binding="{Binding Id}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Номер заказчика" Binding="{Binding Buyer.PhoneNumber}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Магазин" Binding="{Binding Shop.Name}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Дата создания" Binding="{Binding CartStatus.CreationDateTime}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Адрес" Binding="{Binding FullAdress}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Тип заказа" Binding="{Binding DeliveryType}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Время заказа" Binding="{Binding DeliveryTime}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Комментарий" Binding="{Binding Comment}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding FinalSumWithDelivery}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Сумма $" Binding="{Binding DollarsFinalSum}" IsReadOnly="True" x:Name="DollarsFinalSum"/>
+                <DataGridTemplateColumn Header="Статус" IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Margin="0" SelectedValue="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding Source={code:EnumBindingSource {x:Type data:StatusEnum}}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="OrganizationName" Header="Название организации" IsReadOnly="True" Binding="{Binding Buyer.OrganizationName}"/>
+                <DataGridTextColumn x:Name="LegalEntityID" Header="ЄДРПОУ" IsReadOnly="True" Binding="{Binding Buyer.LegalEntityID}"/>
+                <DataGridTextColumn x:Name="ShopComment" Header="Комментарий магазина" IsReadOnly="False" Binding="{Binding ShopComment}"/>
+                <DataGridTextColumn Header="Email заказчика" Binding="{Binding Buyer.Email}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <DataGrid Grid.Row="0" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding CartItems}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название продукта" Binding="{Binding Product.Name}"/>
+                                <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
+                                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}"/>
+                                <DataGridTextColumn Header="Сумма" Binding="{Binding FinalSum}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock Margin="3,0,0,0" Text="Доставка: "/>
+                                <TextBlock Margin="70,0,0,0" Text="{Binding DeliveryPrice}"/>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding DeliveryPrice}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Image Margin="3,0,0,0" HorizontalAlignment="Left" Width="30" Source="/Icons/Gift.png"/>
+                                <DataGrid Margin="35,0,0,0" VerticalAlignment="Bottom" HeadersVisibility="None" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Gifts}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Product.Name}"/>
+                                        <DataGridTextColumn Binding="{Binding ProductPrice}"/>
+                                        <DataGridTextColumn Binding="{Binding Amount}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Gifts.Count}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                            </Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Gifts.Count}" Value="0"/>
+                                                <Condition Binding="{Binding DeliveryPrice}" Value="0"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            <DataGrid.RowHeaderStyle>
+                <Style TargetType="DataGridRowHeader">
+                    <Setter Property="Padding" Value="20"/>
+                </Style>
+            </DataGrid.RowHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Status}" Value="3">
+                            <!-- Оформлен -->
+                            <Setter Property="Background" Value="#81ADC8"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="5">
+                            <!-- В работе -->
+                            <Setter Property="Background" Value="#DEA47E"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="7">
+                            <!-- Выполнен -->
+                            <Setter Property="Background" Value="#F8F2DC"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="9">
+                            <!-- Отменен -->
+                            <Setter Property="Background" Value="#DB3C24"/>
+                            <Setter Property="TextElement.Foreground" Value="#F8F2DC"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+    </Grid>
+</Page>

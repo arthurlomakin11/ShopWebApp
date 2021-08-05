@@ -1,0 +1,17 @@
+﻿<Window x:Class="ShopWebApp.Windows.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Вход" Height="450" Width="476">
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" Text="Вход" TextWrapping="Wrap" VerticalAlignment="Top" Width="48" FontSize="20" TextAlignment="Center" Margin="0,25,0,0"/>
+        <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Margin="159,178,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211"/>
+        <TextBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Margin="159,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211"/>
+        <Label Content="Логин" HorizontalAlignment="Left" Margin="105,174,0,0" VerticalAlignment="Top"/>
+        <Label Content="Пароль" HorizontalAlignment="Left" Margin="104,213,0,0" VerticalAlignment="Top"/>
+        <Button Content="Вход" HorizontalAlignment="Left" Margin="299,271,0,0" VerticalAlignment="Top" Width="71" Height="25" Click="Button_Click"/>
+
+    </Grid>
+</Window>

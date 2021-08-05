@@ -1,0 +1,128 @@
+﻿<Page x:Class="ShopWebApp.Pages.Products"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Converters="clr-namespace:ShopWebApp.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Продукция" FontSize="15">
+    <Page.Resources>
+        <CollectionViewSource x:Key="CategoriesListSource"/>
+        <Converters:NullReplaceConverter x:Key="NullReplaceConverter"/>
+        <Converters:EnumerableNullReplaceConverter x:Key="EnumerableNullReplaceConverter"/>
+    </Page.Resources>
+    <Grid Background="White">
+        <DataGrid BeginningEdit="DataGrid_BeginningEdit" CellEditEnding="DataGrid_CellEditEnding" PreviewKeyDown="DataGrid_PreviewKeyDown" SelectionUnit="Cell" AddingNewItem="DataGrid_AddingNewItem" x:Name="DataGrid" AutoGenerateColumns="False" Margin="10,32,10,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Артикул" x:Name="IdColumn" Binding="{Binding Id}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Описание" Binding="{Binding Description, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                            <Setter Property="AcceptsReturn" Value="true" />
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn x:Name="PriceColumn" Header="Цена" Binding="{Binding Price, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn x:Name="DollarsPriceColumn" Header="Цена $" Binding="{Binding DollarsPrice, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn x:Name="VendorCodeColumn" Header="Артикул" Binding="{Binding VendorCode, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn Header="Группа">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsEditing" Value="True" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox SelectedValuePath="Id" DisplayMemberPath="Name"
+                                    SelectedItem="{Binding Category, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullReplaceConverter}, ConverterParameter='(Empty)'}"
+                                    ItemsSource="{Binding Source={StaticResource CategoriesListSource}, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource EnumerableNullReplaceConverter}, ConverterParameter='(Empty)'}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridCheckBoxColumn
+                        Header="Активный"           
+                        Binding="{Binding Active, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsEditing" Value="True" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn
+                        Header="Исчисляемый"
+                        x:Name="CountableColumn"
+                        Binding="{Binding Countable, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsEditing" Value="True" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="Рейтинг" Binding="{Binding Rating, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="Images_Click">Изображения</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridCheckBoxColumn
+                        Header="Акционный"
+                        x:Name="PromotionalColumn"
+                        Binding="{Binding Promotional, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsEditing" Value="True" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn
+                        Header="Подарок"
+                        x:Name="IsGiftColumn"
+                        Binding="{Binding IsGift, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsEditing" Value="True" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn
+                        x:Name="GiftAmountColumn"
+                        Header="Кол-во подарка"           
+                        Binding="{Binding GiftAmount, UpdateSourceTrigger=LostFocus}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Click="Save_Click" Content="Сохранить" HorizontalAlignment="Right" Margin="0,3,10,0" VerticalAlignment="Top" Padding="10,2"/>
+        <ComboBox x:Name="CategoryFilterComboBox" DisplayMemberPath="Name" SelectionChanged="CategoryFilterComboBox_SelectionChanged" HorizontalAlignment="Left" Margin="93,3,0,0" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Content="Категория:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+        <Label Content="Поиск:" HorizontalAlignment="Left" Margin="218,1,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="SearchTextBox" TextChanged="SearchTextBox_TextChanged" HorizontalAlignment="Left" Margin="279,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+    </Grid>
+</Page>

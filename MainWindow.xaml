@@ -1,0 +1,35 @@
+﻿<Window x:Class="ShopWebApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Админка для сайта" Height="450" Width="800" WindowState="Maximized" WindowStyle="SingleBorderWindow">
+    <Grid>
+        <Menu FontSize="15" Height="25" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
+            <MenuItem Header="Справочники" Height="25">
+                <MenuItem Height="25" Header="Продукция" x:Name="Products" Click="Products_Click"/>
+                <MenuItem Height="25" Header="Категории" x:Name="Categories" Click="Categories_Click"/>
+                <MenuItem Height="25" Header="Меню" x:Name="Menu" Click="Menu_Click"/>
+                <MenuItem Height="25" Header="Магазины" x:Name="Shops" Click="Shops_Click"/>
+                <MenuItem Height="25" Header="Адреса" x:Name="Adresses" Click="Adresses_Click"/>
+                <MenuItem Height="25" Header="Слайдеры" x:Name="Sliders" Click="Sliders_Click"/>
+                <MenuItem Height="25" Header="Пользователи" x:Name="Users" Click="Users_Click"/>
+                <MenuItem Height="25" Header="Коллекции продуктов" x:Name="ProductsCollections" Click="ProductsCollections_Click"/>
+                <MenuItem Height="25" Header="Время доставки" x:Name="DeliveryTime" Click="DeliveryTime_Click"/>
+                <MenuItem Height="25" Header="Цены доставки" x:Name="DeliveryPriceTags" Click="DeliveryPriceTags_Click"/>
+            </MenuItem>
+            <MenuItem Header="Отчеты" Height="25" x:Name="Reports">
+                <MenuItem Height="25" x:Name="Statistics" Header="Статистика по дням" Click="StatisticsByDayPage_Click"/>
+                <MenuItem Height="25" Header="Статистика по часам" Click="StatisticsByHourPage_Click"/>
+                <MenuItem Header="Продукция" Height="25">
+                    <MenuItem Height="25" Header="Статистика по категориям" Click="StatisticsByCategoryPage_Click"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Заказы" Click="Orders_Click"/>
+            <MenuItem Header="Непринятые заказы" Click="OrdersCanceled_Click"/>
+            <MenuItem x:Name="Messages" Header="Сообщения" Click="Messages_Click"/>
+        </Menu>
+        <Frame NavigationUIVisibility="Hidden" x:Name="frame" Margin="0,25,0,0"/>
+    </Grid>
+</Window>

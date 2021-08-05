@@ -1,0 +1,52 @@
+<Page x:Class="ShopWebApp.Pages.ProductsCollections"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Коллекции продуктов" FontSize="15">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="21*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+
+
+        <DataGrid x:Name="ProductsListDataGrid" Grid.Column="0" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False" Margin="10,1,10,10" VerticalContentAlignment="Bottom">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding Category.Name, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <DataGrid x:Name="CollectionsDataGrid" AddingNewItem="CollectionsDataGrid_AddingNewItem" Grid.Row="0" Grid.Column="1" VerticalScrollBarVisibility="Auto" CanUserDeleteRows="False" AutoGenerateColumns="False" Margin="10,29,10,10" VerticalContentAlignment="Bottom">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Активный" Binding="{Binding Active, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Показывать в корзине" Binding="{Binding ShowInCart, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Показывать на главной" Binding="{Binding ShowOnMainPage, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <DataGrid x:Name="ProductsDataGrid" ItemsSource="{Binding SelectedItem.Products, ElementName=CollectionsDataGrid}" Grid.Row="1" Grid.Column="1" CanUserDeleteRows="True" AutoGenerateColumns="False" Margin="10,0,10,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" IsReadOnly="True" Binding="{Binding Product.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Категория" IsReadOnly="True" Binding="{Binding Product.Category.Name, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <Button x:Name="Save" Click="SaveChanges" Content="Сохранить" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0,1,10,0" VerticalAlignment="Top" Padding="10,2" Height="26" Width="94"/>
+        <Button x:Name="AddToCollection" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="10,-1,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderThickness="0,0,0,0" Click="AddProductToCollection_Click">
+            <Image Stretch="Fill" Source="/Icons/AddToCollection.png" Height="28" Width="30"/>
+        </Button>
+    </Grid>
+</Page>

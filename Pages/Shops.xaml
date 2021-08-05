@@ -1,0 +1,57 @@
+﻿<Page x:Class="ShopWebApp.Pages.Shops"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Магазины" FontSize="14">
+    <Grid Background="White">
+        <DataGrid CanUserDeleteRows="False" AddingNewItem="DataGrid_AddingNewItem" x:Name="DataGrid" AutoGenerateColumns="False" Margin="4,32,4,4">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Адрес" Binding="{Binding Adress, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn 
+                        Header="Обрабатывается вручную"
+                        Binding="{Binding ProcessedManually, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsEditing" Value="True" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn MaxWidth="200" Header="Ссылка на картинку" Binding="{Binding ImageUri, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn MaxWidth="200" Header="Номер телефона" Binding="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn MaxWidth="200" Header="Время работы" Binding="{Binding WorkTime, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn Header="Тип работы">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Доставка: "/>
+                                <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding Delivery, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Самовывоз: "/>
+                                <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding Pickup, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn MaxWidth="200" Header="Ссылка на карты" Binding="{Binding MapsUri, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn MaxWidth="200" Header="Ссылка на карты (путь)" Binding="{Binding MapsDirectionsUri, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Click="Save_Click" Content="Сохранить" HorizontalAlignment="Right" Margin="0,3,10,0" VerticalAlignment="Top" Padding="10,2"/>
+    </Grid>
+</Page>
