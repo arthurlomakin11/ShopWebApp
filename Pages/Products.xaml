@@ -64,6 +64,20 @@
                     </DataGridCheckBoxColumn.CellStyle>
                 </DataGridCheckBoxColumn>
                 <DataGridCheckBoxColumn
+                        Header="В наличии"
+                        x:Name="IsAvailableColumn"
+                        Binding="{Binding IsAvailable, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsEditing" Value="True" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn
                         Header="Исчисляемый"
                         x:Name="CountableColumn"
                         Binding="{Binding Countable, UpdateSourceTrigger=PropertyChanged}">

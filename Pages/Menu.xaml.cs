@@ -2,6 +2,8 @@
 
 using Microsoft.EntityFrameworkCore;
 
+using ShopWeb.Shared;
+
 using ShopWebApp.Code;
 using ShopWebApp.Windows;
 using ShopWebData;

@@ -10,6 +10,7 @@ using System.Windows.Markup;
 using System;
 using System.Linq;
 using ShopWebApp.Code;
+using ShopWeb.Shared;
 
 namespace ShopWebApp
 {

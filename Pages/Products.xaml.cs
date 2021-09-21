@@ -1,7 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShopWebApp.Code;
+
+using ShopWeb.Shared;
+
 using ShopWebApp.Windows;
+
 using ShopWebData;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -67,7 +71,8 @@ namespace ShopWebApp.Pages
 
                 bool SearchBool()
                 {
-                    return product.Name.ToLower().Contains(SearchTextBox.Text.ToLower());
+                    return product.Name.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
+                    product.VendorCode.ToLower().Replace("А", "A").Contains(SearchTextBox.Text.ToLower().Replace("А", "A"));
                 }
 
 
@@ -138,6 +143,8 @@ namespace ShopWebApp.Pages
                 }
             }
         }
+
+        readonly bool NewProductIsCountable = SettingsManager.GetValueBool("NewProductIsCountable");
         private void DataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
             Product NewItem = new()
@@ -145,7 +152,7 @@ namespace ShopWebApp.Pages
                 Name = "Продукт",
                 Description = "",
                 Active = true,
-                Countable = false,
+                Countable = NewProductIsCountable,
                 Category = CurrentCategory
             };
             e.NewItem = NewItem;
@@ -193,6 +200,7 @@ namespace ShopWebApp.Pages
             SetColumnVisibility("ShowGiftAmountColumnInProductsDesktop", GiftAmountColumn);
             SetColumnVisibility("ShowVendorCodeColumnInProductsDesktop", VendorCodeColumn);
             SetColumnVisibility("ShowIdColumnInProductsDesktop", IdColumn);
+            SetColumnVisibility("ShowIsAvailableColumnInProductsDesktop", IsAvailableColumn);
         }
 
         void SetColumnVisibility(string SettingName, DataGridColumn Column)
