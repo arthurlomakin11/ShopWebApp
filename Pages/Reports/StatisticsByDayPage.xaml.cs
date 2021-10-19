@@ -2,7 +2,7 @@
 
 using LiveCharts;
 using LiveCharts.Wpf;
-using ShopWebData;
+using ShopWeb.Data;
 using System;
 using System.Linq;
 using System.Windows.Controls;

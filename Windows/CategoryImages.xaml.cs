@@ -1,6 +1,6 @@
 ﻿using FluentFTP;
 using Microsoft.Win32;
-using ShopWebData;
+using ShopWeb.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;

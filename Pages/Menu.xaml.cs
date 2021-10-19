@@ -6,13 +6,13 @@ using ShopWeb.Shared;
 
 using ShopWebApp.Code;
 using ShopWebApp.Windows;
-using ShopWebData;
+using ShopWeb.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using MenuItem = ShopWebData.MenuItem;
+using MenuItem = ShopWeb.Data.MenuItem;
 
 namespace ShopWebApp.Pages
 {

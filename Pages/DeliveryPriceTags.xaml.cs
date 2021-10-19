@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ShopWebData;
+using ShopWeb.Data;
 
 namespace ShopWebApp.Pages
 {

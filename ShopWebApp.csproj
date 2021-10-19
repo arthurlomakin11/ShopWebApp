@@ -42,7 +42,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShopWeb.Shared\ShopWeb.Shared.csproj" />
-    <ProjectReference Include="..\ShopWebData\ShopWebData.csproj" />
+    <ProjectReference Include="..\ShopWebData\ShopWeb.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

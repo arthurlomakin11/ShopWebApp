@@ -1,9 +1,9 @@
-﻿using ShopWebData;
+﻿using ShopWeb.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
-using MenuItem = ShopWebData.MenuItem;
+using MenuItem = ShopWeb.Data.MenuItem;
 
 namespace ShopWebApp.Pages
 {

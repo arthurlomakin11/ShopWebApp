@@ -1,4 +1,4 @@
-﻿using ShopWebData;
+﻿using ShopWeb.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;

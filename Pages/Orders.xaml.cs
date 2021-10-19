@@ -3,7 +3,7 @@
 using ShopWeb.Shared;
 
 using ShopWebApp.Code;
-using ShopWebData;
+using ShopWeb.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;

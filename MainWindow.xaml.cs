@@ -4,7 +4,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using ShopWebApp.Pages;
-using ShopWebData;
+using ShopWeb.Data;
 using Menu = ShopWebApp.Pages.Menu;
 using System.Windows.Markup;
 using System;
