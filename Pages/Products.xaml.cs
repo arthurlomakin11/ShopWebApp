@@ -201,6 +201,7 @@ namespace ShopWebApp.Pages
             SetColumnVisibility("ShowVendorCodeColumnInProductsDesktop", VendorCodeColumn);
             SetColumnVisibility("ShowIdColumnInProductsDesktop", IdColumn);
             SetColumnVisibility("ShowIsAvailableColumnInProductsDesktop", IsAvailableColumn);
+            SetColumnVisibility("ShowDollarsPriceColumnInProductsDesktop", DollarsPriceColumn);
         }
 
         void SetColumnVisibility(string SettingName, DataGridColumn Column)
